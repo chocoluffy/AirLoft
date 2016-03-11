@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "serve": "browser-sync start --proxy='localhost:3000' --files 'app_server/views/*.jade, app_server/controllers/*.js'"
+    "serve": "browser-sync start --proxy='localhost:3000' --files 'app_server/views/*.jade, app_server/controllers/*.js, public/stylesheets/*.css'"
   },
   "engines": {
     "node": "~4.2.4",
