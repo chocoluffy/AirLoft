@@ -1,0 +1,67 @@
+extends layout
+
+block content
+	.row.page-header
+		.col-lg-12
+			h1 Nodejs Ninja
+	.row
+		.col-xs-12.col-md-9
+			.row
+				.col-xs-12.col-sm-6
+					p.rating
+						span.glyphicon.glyphicon-star
+						span.glyphicon.glyphicon-star
+						span.glyphicon.glyphicon-star
+						span.glyphicon.glyphicon-star-empty
+						span.glyphicon.glyphicon-star-empty
+					p by Shunzhe Yu
+						.panel.panel-primary
+							.panel-heading
+								h2.panel-title Training Time
+							.panel-body
+								p March 15 - March 17: 7:00 am - 7:00 pm
+								p March 21 - March 23: 7:00 am - 7:00 pm
+						.panel.panel-primary
+							.panel-heading
+								h2.panel-title Materials
+							.panel-body
+								span.label.label-warning
+									span.glyphicon.glyphicon-ok
+									| &nbsp; Nodejs
+								| &nbsp; 12 practical hand-on Nodejs projects &nbsp;&nbsp;
+								br
+								br
+								span.label.label-warning
+									span.glyphicon.glyphicon-ok
+									| &nbsp; Javascript
+								| &nbsp; Learning Javascript in 7 days &nbsp;&nbsp;
+								br
+								br
+								span.label.label-warning
+									span.glyphicon.glyphicon-ok
+									| &nbsp; Mongodb
+								| &nbsp; Using mongodb to store data
+				.col-xs-12.col.col-sm-6.location-map
+					.panel.panel-primary
+						.panel-heading
+							h2.panel-title Location Map
+						.panel-body
+							img.img-responsive.img-rounded(src='http://maps.googleapis.com/maps/api/staticmap?center=43.666257,-79.391198&zoom=17&size=1000x650&sensor=false&markers=43.666257,-79.391198&scale=2')
+			.row
+				.col-xs-12
+					.panel.panel-primary.review-panel
+						.panel-heading
+							a.btn.btn-default.pull-right(href='/mission/review/new') Add review
+							h2.panel-title Peer reviews
+						.panel-body.review-container
+							.row
+								.review
+									.well.well-sm.review-header
+										span.rating
+											span.glyphicon.glyphicon-star
+											span.glyphicon.glyphicon-star
+											span.glyphicon.glyphicon-star
+											span.glyphicon.glyphicon-star
+											span.glyphicon.glyphicon-star-empty
+										span.reviewAuthor Shunzhe Yu
+										small.reviewTimestamp 12 March 2016

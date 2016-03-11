@@ -3,7 +3,7 @@ module.exports.missionlist = function(req, res){
 };
 
 module.exports.missioninfo = function(req, res){
-	res.render('index', {title: 'missions details'});
+	res.render('mission-info', {title: 'missions details'});
 };
 
 module.exports.addReview = function(req, res){
