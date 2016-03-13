@@ -1,82 +1,55 @@
 extends layout
 
+include _includes/sharedHTMLfunctions
+
 block content
 	.row.page-header
 		.col-lg-12
-			h1 Nodejs Ninja
+			h1= name
 	.row
 		.col-xs-12
 			.row
 				.col-xs-12.col-sm-6
 					p.rating
-						span.glyphicon.glyphicon-star
-						span.glyphicon.glyphicon-star
-						span.glyphicon.glyphicon-star
-						span.glyphicon.glyphicon-star-empty
-						span.glyphicon.glyphicon-star-empty
-					p by Shunzhe Yu
+						+outputRating(rating)
+					p by #{author}
 						.panel.panel-primary
 							.panel-heading
-								h2.panel-title Training Time
+								h2.panel-title= timePanel.title
 							.panel-body
-								p March 15 - March 17: 7:00 am - 7:00 pm
-								p March 21 - March 23: 7:00 am - 7:00 pm
+								each timeslot in timePanel.timeslots
+									p= timeslot
 						.panel.panel-primary
 							.panel-heading
-								h2.panel-title Materials
+								h2.panel-title= contentPanel.title
 							.panel-body
-								span.label.label-warning
-									span.glyphicon.glyphicon-ok
-									| &nbsp; Nodejs
-								| &nbsp; 12 practical hand-on Nodejs projects &nbsp;&nbsp;
-								br
-								br
-								span.label.label-warning
-									span.glyphicon.glyphicon-ok
-									| &nbsp; Javascript
-								| &nbsp; Learning Javascript in 7 days &nbsp;&nbsp;
-								br
-								br
-								span.label.label-warning
-									span.glyphicon.glyphicon-ok
-									| &nbsp; Mongodb
-								| &nbsp; Using mongodb to store data
+								each tag in contentPanel.tags
+									span.label.label-warning
+										span.glyphicon.glyphicon-ok
+										| &nbsp; #{tag.tagname}
+									| &nbsp; #{tag.tagdescript} &nbsp;&nbsp;
+									br
+									br
 				.col-xs-12.col.col-sm-6.location-map
 					.panel.panel-primary
 						.panel-heading
-							h2.panel-title Location Map
+							h2.panel-title= locationPanel.title
 						.panel-body
-							img.img-responsive.img-rounded(src='http://maps.googleapis.com/maps/api/staticmap?center=43.666257,-79.391198&zoom=17&size=500x350&sensor=false&markers=43.666257,-79.391198&scale=2')
+							img.img-responsive.img-rounded(src='http://maps.googleapis.com/maps/api/staticmap?center=#{locationPanel.cords[0]},#{locationPanel.cords[1]}&zoom=17&size=500x350&sensor=false&markers=#{locationPanel.cords[0]},#{locationPanel.cords[1]}&scale=2')
 			.row
 				.col-xs-12
 					.panel.panel-primary.review-panel
 						.panel-heading
-							a.btn.btn-default.pull-right(href='/mission/review/new') Add review
-							h2.panel-title Peer reviews
+							a.btn.btn-default.pull-right(href='/mission/review/new')= reviewPanel.addReviewBtn
+							h2.panel-title= reviewPanel.title
 						.panel-body.review-container
-							.row
-								.review
-									.well.well-sm.review-header
-										span.rating
-											span.glyphicon.glyphicon-star
-											span.glyphicon.glyphicon-star
-											span.glyphicon.glyphicon-star
-											span.glyphicon.glyphicon-star
-											span.glyphicon.glyphicon-star-empty
-										span.reviewAuthor Shunzhe Yu
-										small.reviewTimestamp 12 March 2016
-									.col-xs-12
-										p What a great training course! It is the best node tutorial I ever had. I hope that this website can be known by more people, and meet more like-minded people! Again, thanks!!
-							.row
-								.review
-									.well.well-sm.review-header
-										span.rating
-											span.glyphicon.glyphicon-star
-											span.glyphicon.glyphicon-star
-											span.glyphicon.glyphicon-star
-											span.glyphicon.glyphicon-star
-											span.glyphicon.glyphicon-star
-										span.reviewAuthor Monkey D Luffy
-										small.reviewTimestamp 14 March 2016
-									.col-xs-12
-										p What a great training course! One thing I did notice is that tutors are really patient and are willing to teach us a lot of useful techiniques that can be easily applied to our own projects! Thanks!
+							each review in reviewPanel.reviews
+								.row
+									.review
+										.well.well-sm.review-header
+											span.rating
+												outputRating(review.rating)
+											span.reviewAuthor= review.author
+											small.reviewTimestamp= review.timestamp
+										.col-xs-12
+											p= review.text
