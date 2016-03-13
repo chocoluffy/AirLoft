@@ -5,21 +5,21 @@ module.exports.missionlist = function(req, res){
 	 	sidetext: 'Meet interesting people here and do great things! AirLoft helps you share your interests and habbits with the world',
 	 	missions: [
 	 		{
-	 			name: Nodejs Ninja,
+	 			name: 'Nodejs Ninja',
 	 			rating: 3,
-	 			author: Shunzhe Yu,
+	 			author: 'Shunzhe Yu',
 	 			tags: ['Nodejs', 'Javascript', 'Mongodb']
 	 		},
 	 		{
-	 			name: Reactjs Ninja,
+	 			name: 'Reactjs Ninja',
 	 			rating: 4,
-	 			author: Shunzhe Yu,
+	 			author: 'Shunzhe Yu',
 	 			tags: ['Nodejs', 'Javascript', 'Mongodb']
 	 		},
 	 		{
 	 			name: 'Database Ninja',
 	 			rating: 5,
-	 			author: Shunzhe Yu,
+	 			author: 'Shunzhe Yu',
 	 			tags: ['NoSQL', 'postgresql', 'Mongodb']
 	 		}
 	 	]
