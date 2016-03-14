@@ -9,7 +9,7 @@ var reviewSchema = new mongoose.Schema({
 	rating: {type: Number, "default": 0, min: 0, max: 5},
 	author: String,
 	createdOn: {type: Date, "default": Date.now},
-	text: String;
+	text: String
 });
 
 var missionSchema = new mongoose.Schema({
