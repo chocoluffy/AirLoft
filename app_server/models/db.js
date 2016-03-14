@@ -39,3 +39,5 @@ process.once('SIGTERM', function(){
 		process.exit(0);
 	})
 })
+
+require('./missions');
