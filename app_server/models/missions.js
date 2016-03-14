@@ -21,3 +21,5 @@ var missionSchema = new mongoose.Schema({
 	time: timeSchema,
 	reviews: [reviewSchema]
 });
+
+mongoose.model('Mission', missionSchema);
