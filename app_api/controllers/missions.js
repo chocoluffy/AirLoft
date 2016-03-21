@@ -1,3 +1,7 @@
+var mongoose = require('mongoose');
+var Missions = mongoose.model('Mission');
+
+
 var sendJsonRes = function(res, status, content){
 	res.status(status);
 	res.json(content);
