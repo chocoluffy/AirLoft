@@ -16,8 +16,29 @@ module.exports.missionsCreate = function(req, res){
 }
 
 module.exports.missionsReadOne = function(req, res){
-	sendJsonRes(res, 200, {"status": "success"});
-}
+	if(req.params && req.params.missionid){
+		Missions
+			.findById(req.params.missionid)
+			.exec(function(err, mission){
+				if(!mission){
+					sendJsonRes(res, 404, {
+						"message": "Missionid not found!"
+					});
+					return;
+				}
+				else if(err){
+					sendJsonRes(res, 404, err);
+					return;
+				}
+				sendJsonRes(res, 200, mission);
+				console.log("success retrieve mission info!");
+			})
+	}else{
+		sendJsonRes(res, 404, {
+			"message": "No missionid in the request params!"
+		});
+	}
+};
 
 module.exports.missionsUpdateOne = function(req, res){
 	sendJsonRes(res, 200, {"status": "success"});
