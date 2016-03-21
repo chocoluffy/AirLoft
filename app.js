@@ -9,6 +9,9 @@ require('./app_server/models/db');
 var routes = require('./app_server/routes/index');
 var users = require('./app_server/routes/users');
 
+// api routing
+var routesApi = require('./app_api/routes/index');
+
 var app = express();
 
 // view engine setup
