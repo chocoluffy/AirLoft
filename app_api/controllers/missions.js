@@ -8,7 +8,13 @@ var sendJsonRes = function(res, status, content){
 }
 
 module.exports.missionsListByDistance = function(req, res){
-	sendJsonRes(res, 200, {"status": "success"});
+	var lng = parseFloat(req.query.lng);
+	var lat = parseFloat(req.query.lat);
+	var point = {
+		type: "point",
+		coordinates: [lng, lat]
+	};
+	Missions.geonear(point, options, callback);
 }
 
 module.exports.missionsCreate = function(req, res){

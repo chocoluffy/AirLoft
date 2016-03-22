@@ -11,7 +11,7 @@ module.exports.reviewsCreate = function(req, res){
 }
 
 module.exports.reviewsReadOne = function(req, res){
-	if(req.params && req.params.missionid){
+	if(req.params && req.params.missionid && req.params.reviewid){
 		Missions
 			.findById(req.params.missionid)
 			.select('name reviews')
@@ -27,6 +27,12 @@ module.exports.reviewsReadOne = function(req, res){
 				}
 				var response, review;
 				review = mission.reviews.id(req.params.reviewid);
+				if(!review){
+					sendJsonRes(res, 404, {
+						"message": "reviewid not found!"
+					})
+					return;
+				}
 				response = {
 					mission: {
 						name: mission.name,
@@ -38,7 +44,7 @@ module.exports.reviewsReadOne = function(req, res){
 			});
 	}else{
 		sendJsonRes(res, 404, {
-			"message": "No missionid in request"
+			"message": "No missionid or reviewid in request"
 		})
 	}
 
