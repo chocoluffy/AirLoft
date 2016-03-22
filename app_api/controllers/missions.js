@@ -37,21 +37,35 @@ var sendJsonRes = function(res, status, content){
 }
 
 module.exports.missionsListByDistance = function(req, res){
-	var lng = parseFloat(req.query.lng);
-	var lat = parseFloat(req.query.lat);
-	var point = {
-		type: "Point",
-		coordinates: [lng, lat]
-	};
-	var geoOptions = {
-		spherical: true,
-		maxDistance: theEarth.getRadsFromDistance(parseInt(req.query.maxdistance||2000)),
-		num: 10,
-	};
-	// console.log(geoOptions.maxDistance);
-	Missions.geoNear(point, geoOptions, function(err, results, stats){
-		sendJsonRes(res, 200, resToList(results));
-	});
+	if(req.query.lng && req.query.lat){
+		var lng = parseFloat(req.query.lng);
+		var lat = parseFloat(req.query.lat);
+		var point = {
+			type: "Point",
+			coordinates: [lng, lat]
+		};
+		var geoOptions = {
+			spherical: true,
+			maxDistance: theEarth.getRadsFromDistance(parseInt(req.query.maxdistance||2000)),
+			num: 10,
+		};
+		// console.log(geoOptions.maxDistance);
+		Missions.geoNear(point, geoOptions, function(err, results, stats){
+			if(err){
+				sendJsonRes(res, 404, err);
+				return ;
+			}
+			sendJsonRes(res, 200, resToList(results));
+		});
+	}
+	else {
+		sendJsonRes(res, 404, {
+			"message": "Found no longtitue or lattitude in query string."
+		});
+		return;
+	}
+
+		
 }
 
 module.exports.missionsCreate = function(req, res){
