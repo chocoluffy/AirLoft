@@ -27,10 +27,10 @@ var addReiview = function(req, res, mission){
 var updateAveRating = function(missionid){
 	Missions
 		.findById(missionid)
-		.select("reviews")
+		.select("rating reviews")
 		.exec(function(err, mission){
 			if(err){
-				sendJsonRes(res, 404, err);
+				console.log(err);
 			}else{
 				doAveRating(mission);
 			}
@@ -39,12 +39,12 @@ var updateAveRating = function(missionid){
 
 var doAveRating = function(mission){
 	var ratingCount = 0;
-	var ratingNum = mission.length;
+	var ratingNum = mission.reviews.length;
 	mission.reviews.forEach(function(rev){
 		ratingCount = ratingCount + rev.rating;
-	})
+	});
 	mission.rating = parseFloat(ratingCount / ratingNum);
-	mission.save(function(err, mission){
+	mission.save(function(err){
 		if(err){
 			console.log(err);
 		}else{
