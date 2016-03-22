@@ -1,6 +1,19 @@
 var mongoose = require('mongoose');
 var Missions = mongoose.model('Mission');
 
+var theEarth = (function(){
+  var earthRadius = 6371;
+  var getDistanceFromRads = function(rads){
+    return parseFloat(earthRadius * rads);
+  }
+  var getRadsFromDistance = function(distance){
+    return parseFloat(distance/earthRadius);
+  }
+  return {
+    getDistanceFromRads: getDistanceFromRads,
+    getRadsFromDistance: getRadsFromDistance
+  }
+})();
 
 var sendJsonRes = function(res, status, content){
 	res.status(status);
@@ -11,10 +24,30 @@ module.exports.missionsListByDistance = function(req, res){
 	var lng = parseFloat(req.query.lng);
 	var lat = parseFloat(req.query.lat);
 	var point = {
-		type: "point",
+		type: "Point",
 		coordinates: [lng, lat]
 	};
-	Missions.geonear(point, options, callback);
+	var geoOptions = {
+		spherical: true,
+		maxDistance: theEarth.getRadsFromDistance(parseInt(req.query.maxdistance||2000)),
+		num: 10,
+	};
+	console.log(geoOptions.maxDistance);
+	Missions.geoNear(point, geoOptions, function(err, results, stats){
+		var missions = [];
+		results.forEach(function(doc){
+			console.log(doc);
+			missions.push({
+				distance: theEarth.getDistanceFromRads(doc.dis),
+				name: doc.obj.name,
+				author: doc.obj.author,
+				rating: doc.obj.rating,
+				tags: doc.obj.tag,
+				_id: doc.obj._id
+			});
+		});
+		sendJsonRes(res, 200, missions);
+	});
 }
 
 module.exports.missionsCreate = function(req, res){
