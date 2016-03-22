@@ -64,12 +64,26 @@ module.exports.missionsListByDistance = function(req, res){
 		});
 		return;
 	}
-
-		
 }
 
 module.exports.missionsCreate = function(req, res){
-	sendJsonRes(res, 200, {"status": "success"});
+	Missions.create({
+		name: req.body.name,
+		rating: req.body.rating,
+		tags: req.body.tags.split(","),
+		author: req.body.author,
+		coords: [parseFloat(req.body.lng), parseFloat(req.body.lat)],
+		timepanel: {
+			title: req.body.timetitle,
+			timeslots: req.body.timeslots.split(",")
+		}
+	}, function(err, mission){
+		if(err){
+			sendJsonRes(res, 404, err);
+		}else{
+			sendJsonRes(res, 201, mission);
+		}
+	})
 }
 
 module.exports.missionsReadOne = function(req, res){
