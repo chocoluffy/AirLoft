@@ -24,6 +24,34 @@ var addReiview = function(req, res, mission){
 	})
 }
 
+var updateAveRating = function(missionid){
+	Missions
+		.findById(missionid)
+		.select("reviews")
+		.exec(function(err, mission){
+			if(err){
+				sendJsonRes(res, 404, err);
+			}else{
+				doAveRating(mission);
+			}
+		})
+};
+
+var doAveRating = function(mission){
+	var ratingCount = 0;
+	var ratingNum = mission.length;
+	mission.reviews.forEach(function(rev){
+		ratingCount = ratingCount + rev.rating;
+	})
+	mission.rating = parseFloat(ratingCount / ratingNum);
+	mission.save(function(err, mission){
+		if(err){
+			console.log(err);
+		}else{
+			console.log("average rating updated to", parseFloat(ratingCount / ratingNum));
+		}
+	})
+}
 
 module.exports.reviewsCreate = function(req, res){
 	if(req.params.missionid){
