@@ -15,6 +15,22 @@ var theEarth = (function(){
   }
 })();
 
+// for main page listing by distance.
+var resToList = function(results){
+	var lst = [];
+	results.forEach(function(doc){
+		lst.push({
+				distance: theEarth.getDistanceFromRads(doc.dis),
+				name: doc.obj.name,
+				author: doc.obj.author,
+				rating: doc.obj.rating,
+				tags: doc.obj.tag,
+				_id: doc.obj._id
+		})
+	})
+	return lst;
+};
+
 var sendJsonRes = function(res, status, content){
 	res.status(status);
 	res.json(content);
@@ -32,21 +48,9 @@ module.exports.missionsListByDistance = function(req, res){
 		maxDistance: theEarth.getRadsFromDistance(parseInt(req.query.maxdistance||2000)),
 		num: 10,
 	};
-	console.log(geoOptions.maxDistance);
+	// console.log(geoOptions.maxDistance);
 	Missions.geoNear(point, geoOptions, function(err, results, stats){
-		var missions = [];
-		results.forEach(function(doc){
-			console.log(doc);
-			missions.push({
-				distance: theEarth.getDistanceFromRads(doc.dis),
-				name: doc.obj.name,
-				author: doc.obj.author,
-				rating: doc.obj.rating,
-				tags: doc.obj.tag,
-				_id: doc.obj._id
-			});
-		});
-		sendJsonRes(res, 200, missions);
+		sendJsonRes(res, 200, resToList(results));
 	});
 }
 
