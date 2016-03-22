@@ -112,7 +112,34 @@ module.exports.missionsReadOne = function(req, res){
 };
 
 module.exports.missionsUpdateOne = function(req, res){
-	sendJsonRes(res, 200, {"status": "success"});
+	if(!req.params.missionid){
+		sendJsonRes(res, 404, {
+			"message": "Found no missionid in request URL."
+		});
+		return;
+	}
+	Missions
+		.findById(req.params.missionid)
+		.exec(function(err, mission){
+			if(err){
+				sendJsonRes(res, 404, {
+					"message": "Found no mission match."
+				});
+				return;
+			}
+			mission.name = req.body.name;
+			mission.rating = req.body.rating;
+			mission.author = req.body.author;
+			mission.tag = req.body.tags.split(",");
+			mission.coords = [req.body.lng, req.body.lat];
+			mission.save(function(err, mission){
+				if(err){
+					sendJsonRes(res, 404, err);
+				}else{
+					sendJsonRes(res, 200, mission);
+				}
+			})
+		})
 }
 
 module.exports.missionsDeleteOne = function(req, res){
