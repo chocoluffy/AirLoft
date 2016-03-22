@@ -70,7 +70,7 @@ module.exports.missionsCreate = function(req, res){
 	Missions.create({
 		name: req.body.name,
 		rating: req.body.rating,
-		tags: req.body.tags.split(","),
+		tag: req.body.tags.split(","),
 		author: req.body.author,
 		coords: [parseFloat(req.body.lng), parseFloat(req.body.lat)],
 		timepanel: {

@@ -17,7 +17,7 @@ var missionSchema = new mongoose.Schema({
 	rating: {type: Number, "default": 0, min: 0, max: 5},
 	author: String,
 	tag: [String],
-	coords: {type: [Number], index: '2dsphere'},
+	coords: {type: [Number], index: '2dsphere', required: true},
 	time: timeSchema,
 	reviews: [reviewSchema]
 });

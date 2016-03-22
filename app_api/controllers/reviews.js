@@ -6,8 +6,42 @@ var sendJsonRes = function(res, status, content){
 	res.json(content);
 }
 
+var addReiview = function(req, res, mission){
+	mission.reviews.push({
+		rating: req.body.rating,
+		author: req.body.author,
+		text: req.body.text
+	})
+	mission.save(function(err, mission){
+		var thisReview;
+		if(err){
+			sendJsonRes(res, 404, err);
+		}else{
+			// updateAveRating(mission._id);
+			thisReview = mission.reviews[mission.reviews.length - 1];
+			sendJsonRes(res, 201, thisReview);
+		}
+	})
+}
+
+
 module.exports.reviewsCreate = function(req, res){
-	sendJsonRes(res, 200, {"status": "success"});
+	if(req.params.missionid){
+		Missions
+			.findById(req.params.missionid)
+			.select("reviews")
+			.exec(function(err, mission){
+				if(err){
+					sendJsonRes(res, 404, err);
+				}else{
+					addReiview(req, res, mission);
+				}
+			})
+	}else{
+		sendJsonRes(res, 404, {
+			"message": "Found no missionid in params"
+		})
+	}
 }
 
 module.exports.reviewsReadOne = function(req, res){
