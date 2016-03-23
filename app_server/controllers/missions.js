@@ -1,4 +1,13 @@
-module.exports.missionlist = function(req, res){
+var request = require("request");
+
+var apiOptions = {
+	server: "http://localhost:3000"
+}
+if(process.env.NODE_ENV == "production"){
+	apiOptions.server = "https://frozen-ocean-17990.herokuapp.com";
+}
+
+var renderHomePage = function(req, res){
 	res.render('missions-list', {
 	 	title: 'AirLoft',
 	 	subtitle: 'Explore available missions around you!',
@@ -26,7 +35,52 @@ module.exports.missionlist = function(req, res){
 	});
 };
 
+module.exports.missionlist = function(req, res){
+	var path = "/api/missions";
+	var requestOptions = {
+		url: apiOptions.server + path,
+		method: "GET",
+		json: {},
+		qs: {
+			lng: -79.3434,
+			lat: 43.5454,
+			maxdistance: 6000
+		}
+	};
+	console.log(requestOptions.url);
+	request(requestOptions, function(err, response, body){
+		if(err){
+			console.log(err);
+		}else if(response.statusCode == 200){
+			console.log(body);
+		}else{
+			console.log(response.statusCode);
+		}
+	})
+	renderHomePage(req, res);
+};
+
 module.exports.missioninfo = function(req, res){
+
+	var path = "/api/missions/56e6dcd5257bce79699a4193";
+	var requestOptions = {
+		url: apiOptions.server + path,
+		method: "GET",
+		json: {},
+		qs: {}
+	};
+	request(requestOptions, function(err, response, body){
+		if(err){
+			console.log(err);
+		}else if(response.statusCode == 200){
+			console.log(body);
+		}else{
+			console.log(response.statusCode);
+		}
+	})
+
+
+
 	res.render('mission-info', {
 		name: 'Nodejs Ninja',
 		rating: 4,
