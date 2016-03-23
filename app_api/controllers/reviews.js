@@ -123,6 +123,11 @@ module.exports.reviewsUpdateOne = function(req, res){
 		.findById(req.params.missionid)
 		.select("reviews")
 		.exec(function(err, mission){
+			if(err){
+				sendJsonRes(res, 404, {
+					"message": "Found no mission match in database."
+				})
+			}
 			var thisReview = mission.reviews.id(req.params.reviewid);
 			thisReview.rating = req.body.rating;
 			thisReview.author = req.body.author;
