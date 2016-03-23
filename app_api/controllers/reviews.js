@@ -123,10 +123,13 @@ module.exports.reviewsUpdateOne = function(req, res){
 		.findById(req.params.missionid)
 		.select("reviews")
 		.exec(function(err, mission){
-			if(err){
+			if(!mission){
 				sendJsonRes(res, 404, {
-					"message": "Found no mission match in database."
+					"message": "Found no match"
 				})
+			}
+			else if(err){
+				sendJsonRes(res, 404, err);
 			}
 			var thisReview = mission.reviews.id(req.params.reviewid);
 			thisReview.rating = req.body.rating;
@@ -153,10 +156,15 @@ module.exports.reviewsDeleteOne = function(req, res){
 		.findById(req.params.missionid)
 		.select("reviews")
 		.exec(function(err, mission){
-			if(err){
+			if(!mission){
 				sendJsonRes(res, 404, {
 					"message": "Found no match"
-				})
+				});
+				return;
+			}
+			else if(err){
+				sendJsonRes(res, 404, err);
+				return;
 			}
 			mission.reviews.id(req.params.reviewid).remove();
 			mission.save(function(err, mission){

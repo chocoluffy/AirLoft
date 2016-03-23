@@ -122,11 +122,13 @@ module.exports.missionsUpdateOne = function(req, res){
 		.findById(req.params.missionid)
 		.select("-rating -reviews")
 		.exec(function(err, mission){
-			if(err){
+			if(!mission){
 				sendJsonRes(res, 404, {
-					"message": "Found no mission match."
-				});
-				return;
+					"message": "Found no match"
+				})
+			}
+			else if(err){
+				sendJsonRes(res, 404, err);
 			}
 			mission.name = req.body.name;
 			mission.author = req.body.author;
@@ -152,10 +154,13 @@ module.exports.missionsDeleteOne = function(req, res){
 	Missions
 		.findById(req.params.missionid)
 		.exec(function(err, mission){
-			if(err){
+			if(!mission){
 				sendJsonRes(res, 404, {
 					"message": "Found no match"
 				})
+			}
+			else if(err){
+				sendJsonRes(res, 404, err);
 			}
 			Missions.remove(function(err, mission){
 				if(err){
