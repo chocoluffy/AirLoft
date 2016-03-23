@@ -143,5 +143,29 @@ module.exports.reviewsUpdateOne = function(req, res){
 }
 
 module.exports.reviewsDeleteOne = function(req, res){
-	sendJsonRes(res, 200, {"status": "success"});
+	if(!req.params.missionid || !req.params.reviewid){
+		sendJsonRes(res, 404, {
+			"message": "Found no missionid or reviewid in request URL"
+		});
+		return;
+	}
+	Missions
+		.findById(req.params.missionid)
+		.select("reviews")
+		.exec(function(err, mission){
+			if(err){
+				sendJsonRes(res, 404, {
+					"message": "Found no match"
+				})
+			}
+			mission.reviews.id(req.params.reviewid).remove();
+			mission.save(function(err, mission){
+				if(err){
+					sendJsonRes(res, 404, err);
+					return;
+				}
+				updateAveRating(mission._id);
+				sendJsonRes(res, 204, null);
+			})
+		})
 }

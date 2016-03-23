@@ -143,5 +143,26 @@ module.exports.missionsUpdateOne = function(req, res){
 }
 
 module.exports.missionsDeleteOne = function(req, res){
-	sendJsonRes(res, 200, {"status": "success"});
+	if(!req.params.missionid){
+		sendJsonRes(res, 404, {
+			"message": "Found no missionid in request URL"
+		});
+		return;
+	}
+	Missions
+		.findById(req.params.missionid)
+		.exec(function(err, mission){
+			if(err){
+				sendJsonRes(res, 404, {
+					"message": "Found no match"
+				})
+			}
+			Missions.remove(function(err, mission){
+				if(err){
+					console.log(err);
+					return;
+				}
+				sendJsonRes(res, 204, null);
+			})
+		})
 }
