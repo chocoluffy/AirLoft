@@ -113,13 +113,30 @@ module.exports.reviewsReadOne = function(req, res){
 }
 
 module.exports.reviewsUpdateOne = function(req, res){
-	sendJsonRes(res, 200, {"status": "success"});
+	if(!req.params.missionid || !req.params.reviewid){
+		sendJsonRes(res, 404, {
+			"message": "Found no missionid or reviewid in request URL"
+		});
+		return;
+	}
+	Missions
+		.findById(req.params.missionid)
+		.select("reviews")
+		.exec(function(err, mission){
+			var thisReview = mission.reviews.id(req.params.reviewid);
+			thisReview.rating = req.body.rating;
+			thisReview.author = req.body.author;
+			thisReview.text = req.body.author;
+			mission.save(function(err, mission){
+				if(err){
+					sendJsonRes(res, 404, err);
+					return;
+				}
+				sendJsonRes(res, 200, mission);
+			});
+		})
 }
 
 module.exports.reviewsDeleteOne = function(req, res){
-	sendJsonRes(res, 200, {"status": "success"});
-}
-
-module.exports.missionsDeleteOne = function(req, res){
 	sendJsonRes(res, 200, {"status": "success"});
 }

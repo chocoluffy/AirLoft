@@ -120,6 +120,7 @@ module.exports.missionsUpdateOne = function(req, res){
 	}
 	Missions
 		.findById(req.params.missionid)
+		.select("-rating -reviews")
 		.exec(function(err, mission){
 			if(err){
 				sendJsonRes(res, 404, {
@@ -128,7 +129,6 @@ module.exports.missionsUpdateOne = function(req, res){
 				return;
 			}
 			mission.name = req.body.name;
-			mission.rating = req.body.rating;
 			mission.author = req.body.author;
 			mission.tag = req.body.tags.split(",");
 			mission.coords = [req.body.lng, req.body.lat];
