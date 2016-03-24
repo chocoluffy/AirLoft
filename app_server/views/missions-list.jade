@@ -10,14 +10,15 @@ block content
                     small &nbsp; #{subtitle}
     .row
         .col-xs-12.col-sm-8
+            .error= message
             .row.list-group
                 each mission in missions
                     .col-xs-12.list-group-item
                         h4
-                            a(href='/mission')= mission.name
+                            a(href='/mission/#{mission._id}')= mission.name
                             small &nbsp;
                                 +outputRating(mission.rating)
-                            span.badge.pull-right.badge-default 100m
+                            span.badge.pull-right.badge-default= mission.distance
                         p.author= mission.author
                         p
                             each tag in mission.tags

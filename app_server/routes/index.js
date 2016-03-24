@@ -5,7 +5,7 @@ var ctrlOthers = require('../controllers/others');
 
 // locations controller
 router.get('/', ctrlMissions.missionlist);
-router.get('/mission', ctrlMissions.missioninfo);
+router.get('/mission/:missionid', ctrlMissions.missioninfo);
 router.get('/mission/review/new', ctrlMissions.addReview);
 
 // others controller
