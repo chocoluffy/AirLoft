@@ -41,11 +41,6 @@ var renderHomePage = function(req, res, data){
 };
 
 var renderSingleMission = function(req, res, data){
-		var tags;
-		for(var i=0; i<data.tag.length; i++){
-			tags[i].tagname = data.tag[i];
-		}
-
 		res.render('mission-info', {
 		name: data.name,
 		rating: data.rating,
