@@ -3,9 +3,9 @@ var request = require("request");
 var apiOptions = {
 	server: "http://localhost:3000"
 }
-if(process.env.NODE_ENV == "production"){
-	apiOptions.server = "https://frozen-ocean-17990.herokuapp.com";
-}
+// if(process.env.NODE_ENV == "production"){
+// 	apiOptions.server = "https://frozen-ocean-17990.herokuapp.com";
+// }
 
 var renderHomePage = function(req, res){
 	res.render('missions-list', {
@@ -42,12 +42,11 @@ module.exports.missionlist = function(req, res){
 		method: "GET",
 		json: {},
 		qs: {
-			lng: -79.3434,
-			lat: 43.5454,
-			maxdistance: 6000
+			lng: 78.432323,
+			lat: -41.23424,
+			maxdistance: 200
 		}
 	};
-	console.log(requestOptions.url);
 	request(requestOptions, function(err, response, body){
 		if(err){
 			console.log(err);
@@ -62,7 +61,7 @@ module.exports.missionlist = function(req, res){
 
 module.exports.missioninfo = function(req, res){
 
-	var path = "/api/missions/56e6dcd5257bce79699a4193";
+	var path = "/api/missions/56f300da505a72842ef8ee94";
 	var requestOptions = {
 		url: apiOptions.server + path,
 		method: "GET",

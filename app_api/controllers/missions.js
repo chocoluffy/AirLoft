@@ -49,6 +49,7 @@ module.exports.missionsListByDistance = function(req, res){
 			maxDistance: theEarth.getRadsFromDistance(parseInt(req.query.maxdistance||2000)),
 			num: 10,
 		};
+		geoOptions.maxDistance = 10000;
 		console.log(geoOptions.maxDistance);
 		Missions.geoNear(point, geoOptions, function(err, results, stats){
 			if(err){
