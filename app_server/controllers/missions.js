@@ -65,6 +65,7 @@ var renderSingleMission = function(req, res, data){
 	});
 }
 
+
 module.exports.missionlist = function(req, res){
 	var path = "/api/missions";
 	var requestOptions = {
