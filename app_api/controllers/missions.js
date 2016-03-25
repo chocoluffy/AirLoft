@@ -21,13 +21,13 @@ var resToList = function(results){
 	results.forEach(function(doc){
 		lst.push({
 				distance: theEarth.getDistanceFromRads(doc.dis),
+				contentPanel: doc.obj.contentPanel,
 				name: doc.obj.name,
 				author: doc.obj.author,
 				rating: doc.obj.rating,
-				tags: doc.obj.tag,
 				_id: doc.obj._id
 		})
-	})
+	});
 	return lst;
 };
 
@@ -46,7 +46,7 @@ module.exports.missionsListByDistance = function(req, res){
 		};
 		var geoOptions = {
 			spherical: true,
-			maxDistance: theEarth.getRadsFromDistance(parseInt(req.query.maxdistance||5000)),
+			maxDistance: theEarth.getRadsFromDistance(parseInt(req.query.maxdistance||50000)),
 			num: 10,
 		};
 		Missions.geoNear(point, geoOptions, function(err, results, stats){
@@ -69,13 +69,19 @@ module.exports.missionsCreate = function(req, res){
 	Missions.create({
 		name: req.body.name,
 		rating: req.body.rating,
-		tag: req.body.tags.split(","),
 		author: req.body.author,
-		coords: [parseFloat(req.body.lng), parseFloat(req.body.lat)],
-		timepanel: {
-			title: req.body.timetitle,
-			timeslots: req.body.timeslots.split(",")
-		}
+		timeslots: req.body.timeslots.split(","),
+		contentPanel: [{
+				tagname: req.body.tagname1,
+				tagdescript: req.body.tagdescript1
+			}, {
+				tagname: req.body.tagname2,
+				tagdescript: req.body.tagdescript2
+			}, {
+				tagname: req.body.tagname3,
+				tagdescript: req.body.tagdescript3
+		}],
+		cords: [parseFloat(req.body.lng), parseFloat(req.body.lat)],
 	}, function(err, mission){
 		if(err){
 			sendJsonRes(res, 404, err);

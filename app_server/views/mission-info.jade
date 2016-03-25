@@ -23,11 +23,11 @@ block content
 							.panel-heading
 								h2.panel-title= contentPanel.title
 							.panel-body
-								each tag in contentPanel.tags
+								each pin in contentPanel
 									span.label.label-warning
 										span.glyphicon.glyphicon-ok
-										| &nbsp; #{tag.tagname}
-									| &nbsp; #{tag.tagdescript} &nbsp;&nbsp;
+										| &nbsp; #{pin.tagname}
+									| &nbsp; #{pin.tagdescript} &nbsp;&nbsp;
 									br
 									br
 				.col-xs-12.col.col-sm-6.location-map
@@ -35,7 +35,7 @@ block content
 						.panel-heading
 							h2.panel-title= locationPanel.title
 						.panel-body
-							img.img-responsive.img-rounded(src='http://maps.googleapis.com/maps/api/staticmap?center=#{locationPanel.cords[0]},#{locationPanel.cords[1]}&zoom=3&size=500x350&sensor=false&markers=#{locationPanel.cords[0]},#{locationPanel.cords[1]}&scale=2')
+							img.img-responsive.img-rounded(src='http://maps.googleapis.com/maps/api/staticmap?center=#{cords[0]},#{cords[1]}&zoom=3&size=500x350&sensor=false&markers=#{cords[0]},#{cords[1]}&scale=2')
 			.row
 				.col-xs-12
 					.panel.panel-primary.review-panel

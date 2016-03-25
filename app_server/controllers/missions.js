@@ -21,6 +21,14 @@ var _formatDistance = function(distance){
 		unit = 'm';
 	}
 	return numDistance + unit;
+};
+
+var _collectTags = function(doc){
+	var taglst = [];
+	doc.forEach(function(pin){
+		taglst.push(pin.tagname);
+	})
+	return taglst;
 }
 
 var renderHomePage = function(req, res, data){
@@ -31,6 +39,7 @@ var renderHomePage = function(req, res, data){
 	}else if(!data.length){
 		message = "Found no match missions!"
 	}
+	console.log(data);
 	res.render('missions-list', {
 	 	title: 'AirLoft',
 	 	subtitle: 'Explore available missions around you!',
@@ -46,11 +55,11 @@ var renderSingleMission = function(req, res, data){
 		rating: data.rating,
 		author: data.author,
 		timePanel:{
-			title: data.timetitle||"Training time",
+			title: "Timetable",
 			timeslots: data.timeslots||[]
 		},
 		contentPanel: {
-			title: 'materials',
+			title: 'Our Goals',
 			tags: [],
 		},
 		locationPanel: {
@@ -73,9 +82,9 @@ module.exports.missionlist = function(req, res){
 		method: "GET",
 		json: {},
 		qs: {
-			lng: 78.432332,
-			lat: -41.23424,
-			maxdistance: 5000
+			lng: -79.40021,
+			lat: 43.664697,
+			maxdistance: 500000
 		}
 	};
 	request(requestOptions, function(err, response, body){
@@ -86,6 +95,7 @@ module.exports.missionlist = function(req, res){
 			data = body;
 			for(i=0; i<body.length; i++){
 				data[i].distance = _formatDistance(data[i].distance);
+				data[i].tags = _collectTags(data[i].contentPanel);
 			}
 			renderHomePage(req, res, data);
 		}else{
