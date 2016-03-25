@@ -93,13 +93,11 @@ module.exports.missioninfo = function(req, res){
 		qs: {}
 	};
 	request(requestOptions, function(err, response, body){
-		if(err){
-			console.log(err);
-		}else if(response.statusCode == 200){
-			console.log(body);
+		if(response.statusCode == 200){
 			renderSingleMission(req, res, body);
 		}else{
 			console.log(response.statusCode);
+			_showError(req, res, response.statusCode);
 		}
 	})
 };
