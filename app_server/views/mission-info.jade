@@ -15,13 +15,13 @@ block content
 					p by #{author}
 						.panel.panel-primary
 							.panel-heading
-								h2.panel-title= timePanel.title
+								h2.panel-title Timetable
 							.panel-body
-								each timeslot in timePanel.timeslots
+								each timeslot in timeslots
 									p= timeslot
 						.panel.panel-primary
 							.panel-heading
-								h2.panel-title= contentPanel.title
+								h2.panel-title Our Goals
 							.panel-body
 								each pin in contentPanel
 									span.label.label-warning
@@ -33,17 +33,17 @@ block content
 				.col-xs-12.col.col-sm-6.location-map
 					.panel.panel-primary
 						.panel-heading
-							h2.panel-title= locationPanel.title
+							h2.panel-title Location Map
 						.panel-body
-							img.img-responsive.img-rounded(src='http://maps.googleapis.com/maps/api/staticmap?center=#{cords[0]},#{cords[1]}&zoom=3&size=500x350&sensor=false&markers=#{cords[0]},#{cords[1]}&scale=2')
+							img.img-responsive.img-rounded(src='http://maps.googleapis.com/maps/api/staticmap?center=#{coords[1]},#{coords[0]}&zoom=17&size=500x350&sensor=false&markers=#{coords[1]},#{coords[0]}&scale=2')
 			.row
 				.col-xs-12
 					.panel.panel-primary.review-panel
 						.panel-heading
-							a.btn.btn-default.pull-right(href='/mission/review/new')= reviewPanel.addReviewBtn
-							h2.panel-title= reviewPanel.title
+							a.btn.btn-default.pull-right(href='/mission/review/new') Add Review
+							h2.panel-title Review Panel
 						.panel-body.review-container
-							each review in reviewPanel.reviews
+							each review in reviews
 								.row
 									.review
 										.well.well-sm.review-header

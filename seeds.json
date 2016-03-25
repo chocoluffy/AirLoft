@@ -6,9 +6,9 @@
  {"tagname": "server", "tagdescript": "Learn how to set up server"}],
  "coords" : [-79.40011, 43.66469],
  "reviews": [{"rating": 5, "author": "Nami", "text": "Amazing tutorials", 
-	"_id": ObjectId(), "timestamp": new Date("Apr 1, 2016")}, {
+	"_id": ObjectId()}, {
 		"rating": 5, "author": "Zoro", "text": "Hard but rewarding training!",
-		"_id": ObjectId(), "timestamp": new Date("Mar 23, 2016")
+		"_id": ObjectId()
 	}]}
 
 { "name" : "Badminton Pro",
@@ -19,7 +19,8 @@
  {"tagname": "badminton", "tagdescript": "Learn how to serve and slash"}],
  "coords" : [-79.40021, 43.66469],
  "reviews": [{"rating": 4, "author": "Usorp", "text": "Good class!", 
-	"_id": ObjectId(), "timestamp": new Date("Apr 3, 2016")}, {
+	"_id": ObjectId()},
+	 {
 		"rating": 5, "author": "Sanji", "text": "It's demanding at first, but soon I get accustomed to the training and feel much better!",
-		"_id": ObjectId(), "timestamp": new Date("Mar 27, 2016")
+		"_id": ObjectId()
 	}]}

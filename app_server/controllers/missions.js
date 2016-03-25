@@ -50,28 +50,7 @@ var renderHomePage = function(req, res, data){
 };
 
 var renderSingleMission = function(req, res, data){
-		res.render('mission-info', {
-		name: data.name,
-		rating: data.rating,
-		author: data.author,
-		timePanel:{
-			title: "Timetable",
-			timeslots: data.timeslots||[]
-		},
-		contentPanel: {
-			title: 'Our Goals',
-			tags: [],
-		},
-		locationPanel: {
-			title: 'Location Map',
-			cords: data.coords
-		},
-		reviewPanel: {
-			title: 'Peer Reviews',
-			addReviewBtn: 'Add review',
-			reviews: data.reviews
-		}
-	});
+		res.render('mission-info', data);
 }
 
 
