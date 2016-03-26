@@ -80,7 +80,7 @@ var _showError = function(req, res, data){
 
 module.exports.missionlist = function(req, res){
 	res.render("missions-list", {
-		title: "haha"
+		title: "airloft"
 	})
 };
 
