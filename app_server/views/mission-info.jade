@@ -40,7 +40,7 @@ block content
 				.col-xs-12
 					.panel.panel-primary.review-panel
 						.panel-heading
-							a.btn.btn-default.pull-right(href='/mission/review/new') Add Review
+							a.btn.btn-default.pull-right(href='/mission/#{_id}/review/new') Add Review
 							h2.panel-title Review Panel
 						.panel-body.review-container
 							each review in reviews
@@ -48,8 +48,8 @@ block content
 									.review
 										.well.well-sm.review-header
 											span.rating
-												outputRating(review.rating)
+												+outputRating(review.rating)
 											span.reviewAuthor= review.author
-											small.reviewTimestamp= review.timestamp
+											small.reviewTimestamp= review.createdOn
 										.col-xs-12
 											p= review.text

@@ -15,7 +15,7 @@ var addReiview = function(req, res, mission){
 	mission.save(function(err, mission){
 		var thisReview;
 		if(err){
-			sendJsonRes(res, 404, err);
+			sendJsonRes(res, 400, err);
 		}else{
 			updateAveRating(mission._id);
 			thisReview = mission.reviews[mission.reviews.length - 1];

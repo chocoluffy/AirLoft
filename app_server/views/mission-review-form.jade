@@ -2,11 +2,13 @@ extends layout
 
 block content
 	.row.page-header
-		.col-lg-12
+		.col-lg-12.text-center
 			h1= name
 	.row
 		.col-xs-12.col-ms-6
-			form.form-horizontal(action='/mission', method='get', role='form')
+			form#addReview.form-horizontal(action='', method='post', role='form')
+				- if(error == "val")
+					.alert.alert-danger.text-center(role="alert") All fields required, please try again!
 				.form-group
 					label.col-xs-10.col-sm-2.control-label(for='name') Name
 					.col-xs-12.col-sm-10
@@ -24,5 +26,5 @@ block content
 					label.col-sm-2.control-label(for='review') Review
 					.col-sm-10
 						textarea#review.form-control(name='review', rows="5")
-				button.btn.btn-default.pull-right Add my review
+				button.btn.btn-default.pull-right(href="/mission/#{_id}/reviews/new") Add my review
 			.col-xs-12.col-md-4
