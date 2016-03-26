@@ -1,3 +1,5 @@
+angular.module('airloft', []);
+
 var missionListCtrl = function($scope){
 	$scope.data{
 		missions: [{
@@ -9,8 +11,6 @@ var missionListCtrl = function($scope){
 		}]
 	}
 };
-
-angular.module('airloft', []);
 
 angular
 	.module('airloft')
