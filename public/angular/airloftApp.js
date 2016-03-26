@@ -1,15 +1,18 @@
 angular.module('airloft', []);
 
-var missionListCtrl = function($scope){
-	$scope.data = {
-		missions: [{
-			name: 'one piece',
-			rating: 2,
-			distance: "233",
-			author: "hah",
-			tags: ["ga"],
-		}]
-	}
+var missionListCtrl = function($scope, airloftData){
+	$scope.message = "Searching for nearby places...";
+	airloftData
+		.success(function(data){
+			$scope.message = data.length > 0 ? "" : "No missions found nearby";	
+			$scope.data = {
+				missions: data
+			};
+		})
+		.error(function(e){
+			$scope.message = "Sorry, something's gone wrong.";
+			console.log(e);
+		});
 };
 
 var formatDistance = function(){
@@ -28,9 +31,24 @@ var formatDistance = function(){
 		}
 		return numDistance + unit;
 	};
-}
+};
+
+var ratingStars = function(){
+	return {
+		scope: {
+			thisRating: "=rating"
+		},
+		templateUrl: '/angular/rating-stars.html'
+	};
+};
+
+var airloftData = function($http){
+	return $http.get('/api/missions?lng=-79.40014&lat=43.66469&maxDistance=20000');
+};
 
 angular
 	.module('airloft')
 	.controller('missionListCtrl', missionListCtrl)
-	.filter('formatDistance', formatDistance);
+	.filter('formatDistance', formatDistance)
+	.directive('ratingStars', ratingStars)
+	.service("airloftData", airloftData);

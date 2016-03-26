@@ -10,12 +10,14 @@ block content
                     small &nbsp; #{subtitle}
     .row
         .col-xs-12.col-sm-8(ng-controller="missionListCtrl")
+            label(for="filter") Filter results
+            input#filter(type="text", name="filter", ng-model="textFilter")
             .error {{ message }}
             .row.list-group
-                .col-xs-12.list-group-item(ng-repeat="mission in data.missions")
+                .col-xs-12.list-group-item(ng-repeat="mission in data.missions | filter: textFilter")
                     h4
                         a(href='/mission/{{ mission._id }}') {{ mission.name }}
-                        small &nbsp;&nbsp;{{ mission.rating }}
+                        small(rating-stars, rating="mission.rating")
                         span.badge.pull-right.badge-default {{ mission.distance | formatDistance}}
                     p.author {{ mission.author }}
                     p
