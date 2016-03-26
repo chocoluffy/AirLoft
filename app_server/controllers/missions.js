@@ -79,31 +79,8 @@ var _showError = function(req, res, data){
 
 
 module.exports.missionlist = function(req, res){
-	var path = "/api/missions";
-	var requestOptions = {
-		url: apiOptions.server + path,
-		method: "GET",
-		json: {},
-		qs: {
-			lng: -79.40021,
-			lat: 43.664697,
-			maxdistance: 500000
-		}
-	};
-	request(requestOptions, function(err, response, body){
-		if(err){
-			console.log(err);
-		}else if(response.statusCode == 200){
-			var i, data;
-			data = body;
-			for(i=0; i<body.length; i++){
-				data[i].distance = _formatDistance(data[i].distance);
-				data[i].tags = _collectTags(data[i].contentPanel);
-			}
-			renderHomePage(req, res, data);
-		}else{
-			console.log(response.statusCode);
-		}
+	res.render("missions-list", {
+		title: "haha"
 	})
 };
 
