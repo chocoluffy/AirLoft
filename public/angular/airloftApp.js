@@ -46,6 +46,19 @@ var airloftData = function($http){
 	return $http.get('/api/missions?lng=-79.40014&lat=43.66469&maxDistance=20000');
 };
 
+var geolocation = function(){
+	var getPosition = function(cbSuccess, cbError, cbNoGeo){
+		if(navigator.geolocation){
+			navigator.geolocation.getCurrentPosition(cbSuccess, cbErrorb);
+		}else{
+			cbNoGeo();
+		}
+	};
+	return {
+		getPosition: getPosition
+	};
+};
+
 angular
 	.module('airloft')
 	.controller('missionListCtrl', missionListCtrl)
