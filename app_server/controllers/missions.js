@@ -31,21 +31,11 @@ var _collectTags = function(doc){
 	return taglst;
 }
 
-var renderHomePage = function(req, res, data){
-	var message;
-	if(!(data instanceof Array)){
-		message = "API lookup error!";
-		data = [];
-	}else if(!data.length){
-		message = "Found no match missions!"
-	}
-	console.log(data);
+var renderHomePage = function(req, res){
 	res.render('missions-list', {
 	 	title: 'AirLoft',
 	 	subtitle: 'Explore available missions around you!',
-	 	sidetext: 'Meet interesting people here and do great things! AirLoft helps you share your interests and habbits with the world',
-	 	missions: data,
-	 	message: message
+	 	sidetext: 'Meet interesting people here and do great things! AirLoft helps you share your interests and habbits with the world'
 	});
 };
 
@@ -79,9 +69,7 @@ var _showError = function(req, res, data){
 
 
 module.exports.missionlist = function(req, res){
-	res.render("missions-list", {
-		title: "airloft"
-	})
+	renderHomePage(req, res);
 };
 
 var getMissionById = function(req, res, renderFn){

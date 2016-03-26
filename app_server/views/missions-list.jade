@@ -10,13 +10,13 @@ block content
                     small &nbsp; #{subtitle}
     .row
         .col-xs-12.col-sm-8(ng-controller="missionListCtrl")
-            .error {{ message }
+            .error {{ message }}
             .row.list-group
                 .col-xs-12.list-group-item(ng-repeat="mission in data.missions")
                     h4
                         a(href='/mission/{{ mission._id }}') {{ mission.name }}
-                        small {{ mission.rating }}
-                        span.badge.pull-right.badge-default {{ mission.distance }}
+                        small &nbsp;&nbsp;{{ mission.rating }}
+                        span.badge.pull-right.badge-default {{ mission.distance | formatDistance}}
                     p.author {{ mission.author }}
                     p
                         span.label.label-warning(ng-repeat="tag in mission.tags") {{tag}}
