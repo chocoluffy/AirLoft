@@ -1,18 +1,40 @@
 angular.module('airloft', []);
 
-var missionListCtrl = function($scope, airloftData){
-	$scope.message = "Searching for nearby places...";
-	airloftData
-		.success(function(data){
-			$scope.message = data.length > 0 ? "" : "No missions found nearby";	
-			$scope.data = {
-				missions: data
-			};
-		})
-		.error(function(e){
-			$scope.message = "Sorry, something's gone wrong.";
-			console.log(e);
+var missionListCtrl = function($scope, airloftData, geolocation){
+	$scope.message = "Checking your location...";
+
+	$scope.getData = function(position){
+		var lat = position.coords.latitude,
+			lng = position.coords.longitude;
+		console.log(position);
+		$scope.message = "Searching for nearby missions...";
+		airloftData.missionByCoords(lat, lng)
+			.success(function(data){
+				$scope.message = data.length > 0 ? "" : "No missions found nearby";	
+				$scope.data = {
+					missions: data
+				};
+			})
+			.error(function(e){
+				$scope.message = "Sorry, something's gone wrong.";
+				console.log(e);
+			});
+	};
+
+	$scope.showError = function(error){
+		$scope.$apply(function(){
+			$scope.message = error.message;
 		});
+	};
+
+	$scope.noGeo = function(){
+		$scope.$apply(function(){
+			$scope.message = "Geolocation not supported by this browser.";
+		});
+	};
+
+	geolocation.getPosition($scope.getData, $scope.showError, $scope.noGeo);
+			
 };
 
 var formatDistance = function(){
@@ -43,13 +65,18 @@ var ratingStars = function(){
 };
 
 var airloftData = function($http){
-	return $http.get('/api/missions?lng=-79.40014&lat=43.66469&maxDistance=20000');
+	var missionByCoords = function(lat, lng){
+		return $http.get('/api/missions?lng=' + lng + '&lat=' + lat + '&maxDistance=2000000');
+	};
+	return {
+		missionByCoords: missionByCoords
+	};
 };
 
 var geolocation = function(){
 	var getPosition = function(cbSuccess, cbError, cbNoGeo){
 		if(navigator.geolocation){
-			navigator.geolocation.getCurrentPosition(cbSuccess, cbErrorb);
+			navigator.geolocation.getCurrentPosition(cbSuccess, cbError);
 		}else{
 			cbNoGeo();
 		}
@@ -64,4 +91,5 @@ angular
 	.controller('missionListCtrl', missionListCtrl)
 	.filter('formatDistance', formatDistance)
 	.directive('ratingStars', ratingStars)
-	.service("airloftData", airloftData);
+	.service("airloftData", airloftData)
+	.service("geolocation", geolocation);

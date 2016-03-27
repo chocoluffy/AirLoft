@@ -47,7 +47,8 @@ var renderReview = function(req, res, data){
 	var title = "Write review for ❝ " + data.name + " ❞";
 	res.render('mission-review-form', {
 		name: title,
-		error: req.query.err
+		error: req.query.err,
+		url: req.originalUrl
 	});
 };
 
