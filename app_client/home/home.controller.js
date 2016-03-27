@@ -17,7 +17,6 @@ function homeCtrl(airloftData, geolocation){
 		airloftData.missionByCoords(lat, lng)
 			.success(function(data){
 				vm.message = data.length > 0 ? "" : "No missions found nearby";	
-				console.log(data);
 				vm.data = {
 					missions: data
 				};
