@@ -47,7 +47,7 @@ module.exports.missionsListByDistance = function(req, res){
 		};
 		var geoOptions = {
 			spherical: true,
-			maxDistance: theEarth.getRadsFromDistance(parseInt(req.query.maxDistance)),
+			maxDistance: theEarth.getRadsFromDistance(parseInt(req.query.maxDistance)||20000),
 			num: 10,
 		};
 		Missions.geoNear(point, geoOptions, function(err, results, stats){
