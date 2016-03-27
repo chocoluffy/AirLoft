@@ -2,7 +2,8 @@ var mongoose = require('mongoose');
 var Missions = mongoose.model('Mission');
 
 var theEarth = (function(){
-  var earthRadius = 6371;
+  // var earthRadius = 6371;
+  var earthRadius = 6;
   var getDistanceFromRads = function(rads){
     return parseFloat(earthRadius * rads);
   }
@@ -46,7 +47,7 @@ module.exports.missionsListByDistance = function(req, res){
 		};
 		var geoOptions = {
 			spherical: true,
-			maxDistance: theEarth.getRadsFromDistance(parseInt(req.query.maxdistance||50000)),
+			maxDistance: theEarth.getRadsFromDistance(parseInt(req.query.maxDistance)||20000),
 			num: 10,
 		};
 		Missions.geoNear(point, geoOptions, function(err, results, stats){

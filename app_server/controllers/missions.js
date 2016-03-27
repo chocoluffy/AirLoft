@@ -31,21 +31,11 @@ var _collectTags = function(doc){
 	return taglst;
 }
 
-var renderHomePage = function(req, res, data){
-	var message;
-	if(!(data instanceof Array)){
-		message = "API lookup error!";
-		data = [];
-	}else if(!data.length){
-		message = "Found no match missions!"
-	}
-	console.log(data);
+var renderHomePage = function(req, res){
 	res.render('missions-list', {
 	 	title: 'AirLoft',
 	 	subtitle: 'Explore available missions around you!',
-	 	sidetext: 'Meet interesting people here and do great things! AirLoft helps you share your interests and habbits with the world',
-	 	missions: data,
-	 	message: message
+	 	sidetext: 'Meet interesting people here and do great things! AirLoft helps you share your interests and habbits with the world'
 	});
 };
 
@@ -57,7 +47,8 @@ var renderReview = function(req, res, data){
 	var title = "Write review for ❝ " + data.name + " ❞";
 	res.render('mission-review-form', {
 		name: title,
-		error: req.query.err
+		error: req.query.err,
+		url: req.originalUrl
 	});
 };
 
@@ -79,32 +70,7 @@ var _showError = function(req, res, data){
 
 
 module.exports.missionlist = function(req, res){
-	var path = "/api/missions";
-	var requestOptions = {
-		url: apiOptions.server + path,
-		method: "GET",
-		json: {},
-		qs: {
-			lng: -79.40021,
-			lat: 43.664697,
-			maxdistance: 500000
-		}
-	};
-	request(requestOptions, function(err, response, body){
-		if(err){
-			console.log(err);
-		}else if(response.statusCode == 200){
-			var i, data;
-			data = body;
-			for(i=0; i<body.length; i++){
-				data[i].distance = _formatDistance(data[i].distance);
-				data[i].tags = _collectTags(data[i].contentPanel);
-			}
-			renderHomePage(req, res, data);
-		}else{
-			console.log(response.statusCode);
-		}
-	})
+	renderHomePage(req, res);
 };
 
 var getMissionById = function(req, res, renderFn){

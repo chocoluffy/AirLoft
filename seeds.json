@@ -24,3 +24,16 @@
 		"rating": 5, "author": "Sanji", "text": "It's demanding at first, but soon I get accustomed to the training and feel much better!",
 		"_id": ObjectId()
 	}]}
+
+{ "name" : "Super Bowl",
+ "rating" : 3,
+ "author" : "Hancock",
+ "timeslots": ["Tue 8:00 pm - 10:00 pm", "Fri 8:00 pm - 10:00 pm"],
+ "contentPanel": [{"tagname": "Extreme Sports", "tagdescript": "Explore your body"}],
+ "coords" : [-79.43021, 43.66469],
+ "reviews": [{"rating": 4, "author": "Chopper", "text": "Excited!", 
+	"_id": ObjectId()},
+	 {
+		"rating": 5, "author": "Brook", "text": "It's horrible at first, but soon I get accustomed to the training and feel much better!",
+		"_id": ObjectId()
+	}]}

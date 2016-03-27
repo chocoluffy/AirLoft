@@ -1,5 +1,5 @@
 doctype html
-html
+html(ng-app="airloft")
   head
     meta(name='viewport', content='width=device-width, initial-scale=1.0')
     title= title
@@ -29,11 +29,21 @@ html
                             |  Login
 
     .container
-        block content
+        div(ng-view)
+            block content
 
         footer
             .row
                 .col-xs-12 &copy; Shunzhe Yu 2016
+    
+    script(src='/angular/angular.min.js')
+    script(src="/lib/angular-route.min.js")
+    script(src="/app.js")
+    script(src="/home/home.controller.js")
+    script(src="/common/services/airloftData.service.js")
+    script(src="/common/services/geolocation.service.js")
+    script(src="/common/filters/formatDistance.filter.js")
+    script(src="/common/directive/ratingStars/ratingStars.directive.js")
 
     script(src='/javascripts/jquery-1.12.1.min.js')
     script(src='/bootstrap/js/bootstrap.min.js')
