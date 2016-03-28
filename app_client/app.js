@@ -2,7 +2,7 @@
 	angular.module("airloft", ['ngRoute']);
 
 	// config function: where we define the route.
-	function config ($routeProvider){
+	function config ($routeProvider, $locationProvider){
 		$routeProvider
 			.when('/', {
 				templateUrl: 'home/home.view.html',
@@ -10,10 +10,14 @@
 				controllerAs: 'vm'
 			})
 			.otherwise({redirectTo: '/'});
+
+		$locationProvider.html5Mode({
+			enabled: true
+		}});
 	}
 
 	angular
 		.module('airloft')
-		.config(['$routeProvider', config]);
+		.config(['$routeProvider', '$locationProvider', config]);
 })();
 	
