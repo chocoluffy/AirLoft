@@ -3,7 +3,8 @@
 		.module("airloft")
 		.controller('homeCtrl', homeCtrl);
 
-	function homeCtrl(airloftData, geolocation){
+	homeCtrl.$inject = ['$scope', 'airloftData', 'geolocation'];
+	function homeCtrl($scope, airloftData, geolocation){
 		var vm = this;
 		vm.pageHeader = {
 			title: "AirLoft",
