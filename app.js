@@ -28,7 +28,8 @@ var appClientFiles = [
     'app_client/common/services/airloftData.service.js',
     'app_client/common/filters/formatDistance.filter.js',
     'app_client/common/directive/ratingStars/ratingStars.directive.js',
-    'app_client/common/directive/footerGeneric/footerGeneric.directive.js'
+    'app_client/common/directive/footerGeneric/footerGeneric.directive.js',
+    'app_client/common/directive/navigation/navigation.directive.js'
 ];
 var uglified = uglifyJs.minify(appClientFiles, {compress: false});
 
