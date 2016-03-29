@@ -26,7 +26,6 @@
         text : formData.reviewText
       })
         .success(function (data) {
-          console.log("success adding review!");
           vm.modal.close(data);
         })
         .error(function (data) {

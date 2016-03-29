@@ -33,8 +33,14 @@
 					};
 				}
 			}
-		})
+		});
+		modalInstance.result.then(function(data){
+			vm.data.mission.reviews.push(data);
+		});
 	};
+
+
+
   }
 
 })();
