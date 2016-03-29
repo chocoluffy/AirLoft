@@ -16,6 +16,7 @@
 				lng = position.coords.longitude;
 			console.log(position);
 			vm.message = "Searching for nearby missions...";
+			vm.position = position;
 			airloftData.missionByCoords(lat, lng)
 				.success(function(data){
 					vm.message = data.length > 0 ? "" : "No missions found nearby";	
