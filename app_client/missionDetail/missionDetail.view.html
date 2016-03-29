@@ -1,0 +1,78 @@
+<navigation></navigation>
+
+<div class="container">
+  <page-header content="vm.pageHeader"></page-header>
+
+  <div class="row">
+    <div class="col-xs-12 col-md-9">
+      <div class="row">
+        <div class="col-xs-12 col-sm-6">
+          <p class="rating" rating-stars rating="vm.data.mission.rating"></p>
+          <p>{{ vm.data.mission.author }}</p>
+          <div class="panel panel-primary">
+            <div class="panel-heading">
+              <h2 class="panel-title">Timetable</h2>
+            </div>
+            <div class="panel-body">
+              <p ng-repeat="time in vm.data.mission.timeslots">
+                {{ time }}
+              </p>
+            </div>
+          </div>
+          <div class="panel panel-primary">
+            <div class="panel-heading">
+              <h2 class="panel-title">Our Goals</h2>
+            </div>
+            <div class="panel-body">
+            	<div ng-repeat="pin in vm.data.mission.contentPanel">
+            		<span class="label label-warning label-facility">
+	                	<span class="glyphicon glyphicon-ok">&nbsp;{{ pin.tagname }} </span> 
+	              	</span>
+					{{ pin.tagdescript }}
+					<br/><br/>
+            	</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 location-map">
+          <div class="panel panel-primary">
+            <div class="panel-heading">
+              <h2 class="panel-title">Location Map</h2>
+            </div>
+            <div class="panel-body">
+              <img src="http://maps.googleapis.com/maps/api/staticmap?center={{ vm.data.mission.coords[1] }},{{ vm.data.mission.coords[0] }}&amp;zoom=17&amp;size=400x350&amp;sensor=false&amp;markers={{ vm.data.mission.coords[1] }},{{ vm.data.mission.coords[0] }}&amp;scale=2" class="img-responsive img-rounded">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="panel panel-primary review-panel">
+            <div class="panel-heading"><a class="btn btn-default pull-right">Add review</a>
+              <h2 class="panel-title">Customer reviews</h2>
+            </div>
+            <div class="panel-body review-container">
+              <div class="row">
+                <div class="review" ng-repeat="review in vm.data.mission.reviews | orderBy:'createdOn':true">
+                  <div class="well well-sm review-header">
+                    <span class="rating" rating-stars rating="review.rating"></span>
+                    <span class="reviewAuthor">{{ review.author }}</span>
+                    <small class="reviewTimestamp">{{ review.createdOn | date : 'd MMMM yyyy' }}</small>
+                  </div>
+                  <div class="col-xs-12">
+                    <p>{{ review.text }}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-12 col-md-3">
+      <p class="lead">{{ vm.data.mission.name }} is on Loc8r because it has accessible wifi and space to sit down with your laptop and get some work done.</p>
+      <p>If you've been and you like it - or if you don't - please leave a review to help other people just like you.</p>
+    </div>
+  </div>
+  <footer-generic></footer-generic>
+</div>

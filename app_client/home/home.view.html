@@ -21,7 +21,7 @@
 			<div class="row list-group">
 				<div class="col-xs-12 list-group-item" ng-repeat="mission in vm.data.missions | filter: textFilter">
 					<h4>
-						<a href="/mission/{{mission._id}}">{{mission.name}}</a>
+						<a href="/#/mission/{{mission._id}}">{{mission.name}}</a>
 						<small class="rating-stars" rating-stars rating="mission.rating"></small>
 						<span class="badge pull-right badge-default">{{mission.distance | formatDistance}}</span>
 					</h4>
