@@ -1,15 +1,16 @@
 var mongoose = require('mongoose');
-var Missions = mongoose.model('Mission')
+var Missions = mongoose.model('Mission');
+var User = mongoose.model('User');
 
 var sendJsonRes = function(res, status, content){
 	res.status(status);
 	res.json(content);
 }
 
-var addReiview = function(req, res, mission){
+var addReiview = function(req, res, mission, author){
 	mission.reviews.push({
 		rating: req.body.rating,
-		author: req.body.author,
+		author: author,
 		text: req.body.text
 	})
 	mission.save(function(err, mission){
@@ -54,23 +55,54 @@ var doAveRating = function(mission){
 }
 
 module.exports.reviewsCreate = function(req, res){
-	if(req.params.missionid){
-		Missions
-			.findById(req.params.missionid)
-			.select("reviews")
-			.exec(function(err, mission){
-				if(err){
-					sendJsonRes(res, 404, err);
-				}else{
-					addReiview(req, res, mission);
-				}
+	getAuthor(req, res, function(req, res, userName){
+		if(req.params.missionid){
+			Missions
+				.findById(req.params.missionid)
+				.select("reviews")
+				.exec(function(err, mission){
+					if(err){
+						sendJsonRes(res, 404, err);
+					}else{
+						addReiview(req, res, mission, userName);
+					}
+				})
+		}else{
+			sendJsonRes(res, 404, {
+				"message": "Found no missionid in params"
 			})
-	}else{
-		sendJsonRes(res, 404, {
-			"message": "Found no missionid in params"
-		})
-	}
-}
+		}
+	});
+};
+
+var getAuthor = function(req, res, callback) {
+  console.log("Finding author with email " + req.payload.email);
+  if (req.payload.email) {
+    User
+      .findOne({ email : req.payload.email })
+      .exec(function(err, user) {
+        if (!user) {
+          sendJSONresponse(res, 404, {
+            "message": "User not found"
+          });
+          return;
+        } else if (err) {
+          console.log(err);
+          sendJSONresponse(res, 404, err);
+          return;
+        }
+        console.log(user);
+        callback(req, res, user.name);
+      });
+
+  } else {
+    sendJSONresponse(res, 404, {
+      "message": "User not found"
+    });
+    return;
+  }
+
+};
 
 module.exports.reviewsReadOne = function(req, res){
 	if(req.params && req.params.missionid && req.params.reviewid){
