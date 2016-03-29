@@ -3,10 +3,13 @@
     .module('airloft')
     .controller('missionDetailCtrl', missionDetailCtrl);
 
-  missionDetailCtrl.$inject = ['$routeParams', '$uibModal', 'airloftData'];
-  function missionDetailCtrl ($routeParams, $uibModal, airloftData) {
+  missionDetailCtrl.$inject = ['$routeParams', '$location', '$uibModal', 'airloftData', 'authentication'];
+  function missionDetailCtrl ($routeParams, $location, $uibModal, airloftData, authentication) {
     var vm = this;
     vm.missionid = $routeParams.missionid;
+
+    vm.isLoggedIn = authentication.isLoggedIn();
+    vm.currentPath = $location.path();
 
     airloftData.missionById(vm.missionid)
     	.success(function(data) {

@@ -3,9 +3,9 @@
 		.module('airloft')
 		.service('airloftData', airloftData);
 
-	airloftData.$inject = ['$http'];
+	airloftData.$inject = ['$http', 'authentication'];
 
-	function airloftData ($http){
+	function airloftData ($http, authentication){
 		var missionByCoords = function(lat, lng){
 			return $http.get('/api/missions?lng=' + lng + '&lat=' + lat + '&maxDistance=20000');
 		};
@@ -16,7 +16,11 @@
 
 		var addReviewById = function(missionid, data){
 			console.log(data);
-			return $http.post('/api/missions/' + missionid + '/reviews', data);
+			return $http.post('/api/missions/' + missionid + '/reviews', data, {
+				headers: {
+					Authorization: 'Bearer ' + authentication.getToken()
+				}
+			});
 		}
 
 		return {
