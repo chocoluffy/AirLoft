@@ -46,3 +46,4 @@ process.once('SIGTERM', function(){
 })
 
 require('./missions');
+require('./users');
