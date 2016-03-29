@@ -1,5 +1,5 @@
 (function (){
-	angular.module("airloft", ['ngRoute']);
+	angular.module("airloft", ['ngRoute', 'ui.bootstrap']);
 
 	// config function: where we define the route.
 	function config ($routeProvider, $locationProvider){

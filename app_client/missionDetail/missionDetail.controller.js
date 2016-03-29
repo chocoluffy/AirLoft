@@ -11,17 +11,18 @@
     airloftData.missionById(vm.missionid)
     	.success(function(data) {
 	        vm.data = { mission: data };
-	        console.log(vm.data);
+	        // console.log(vm.data);
 	        vm.pageHeader = {
-	          title: vm.data.mission.name
+	          title: vm.data.mission.name,
+	          strapline: vm.data.mission.author
 	        };
 	    })
 	    .error(function (e) {
 	        console.log(e);
 	    });
 
-    vm.pageHeader = {
-      title: vm.missionid
+	vm.popupReviewForm = function(){
+		console.log("button");
 	};
   }
 
