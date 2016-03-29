@@ -14,9 +14,15 @@
 			return $http.get('/api/missions/' + missionid);
 		};
 
+		var addReviewById = function(missionid, data){
+			console.log(data);
+			return $http.post('/api/missions/' + missionid + '/reviews', data);
+		}
+
 		return {
 			missionByCoords: missionByCoords,
-			missionById: missionById
+			missionById: missionById,
+			addReviewById: addReviewById
 		};
 	};
 })();

@@ -3,8 +3,8 @@
     .module('airloft')
     .controller('missionDetailCtrl', missionDetailCtrl);
 
-  missionDetailCtrl.$inject = ['$routeParams', 'airloftData'];
-  function missionDetailCtrl ($routeParams, airloftData) {
+  missionDetailCtrl.$inject = ['$routeParams', '$uibModal', 'airloftData'];
+  function missionDetailCtrl ($routeParams, $uibModal, airloftData) {
     var vm = this;
     vm.missionid = $routeParams.missionid;
 
@@ -22,7 +22,18 @@
 	    });
 
 	vm.popupReviewForm = function(){
-		console.log("button");
+		var modalInstance = $uibModal.open({
+			templateUrl: '/reviewModal/reviewModal.view.html',
+			controller: 'reviewModalCtrl as vm',
+			resolve: {
+				missionData : function(){
+					return {
+						missionid: vm.missionid,
+						missionName: vm.data.mission.name
+					};
+				}
+			}
+		})
 	};
   }
 
