@@ -15,14 +15,17 @@
 			var lat = position.coords.latitude,
 				lng = position.coords.longitude;
 			console.log(position);
+			vm.transit = 0;
 			vm.message = "Searching for nearby missions...";
 			vm.position = position;
+			
 			airloftData.missionByCoords(lat, lng)
 				.success(function(data){
 					vm.message = data.length > 0 ? "" : "No missions found nearby";	
 					vm.data = {
 						missions: data
 					};
+					vm.transit = 1;
 				})
 				.error(function(e){
 					vm.message = "Sorry, something's gone wrong.";

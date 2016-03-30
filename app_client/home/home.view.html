@@ -15,10 +15,11 @@
 	
 	<div class="row">
 		<div class="col-xs-12 col-sm-8">
-			<label for="filter">Filter results</label>
-			<input type="text" id="filter" name="filter" ng-model="textFilter">
+			<label ng-show="vm.transit" for="filter">Filter results</label>
+			<input ng-show="vm.transit" type="text" id="filter" name="filter" ng-model="textFilter">
 			<div class="error">{{vm.message}}</div>
 			<div class="row list-group">
+				<div ng-hide="vm.transit" class='drip'></div>
 				<div class="col-xs-12 list-group-item" ng-repeat="mission in vm.data.missions | filter: textFilter">
 					<h4>
 						<a href="/#/mission/{{mission._id}}">{{mission.name}}</a>
@@ -33,9 +34,10 @@
 			</div>
 		</div>
 		<div class="col-xs-12 col-sm-4">
-			<p class="lead">Looking for Missions to solve and friends to meet? AirLoft helps you explore similar minds around you!</p>
+			<p ng-hide="vm.transit" class="lead">Where are you?</p>
+			<p ng-show="vm.transit" class="lead">You are here!</p>
 			<img src="http://maps.googleapis.com/maps/api/staticmap?center={{ vm.position.coords.latitude }},{{ vm.position.coords.longitude }}&amp;zoom=17&amp;size=300x250&amp;sensor=false&amp;markers={{ vm.position.coords.latitude }},{{ vm.position.coords.longitude }}&amp;scale=2" class="img-responsive img-rounded">
-			<div class='drip'></div>
+			
 		</div>
 	</div>
 

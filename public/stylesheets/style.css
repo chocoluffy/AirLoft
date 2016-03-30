@@ -22,6 +22,10 @@
 
 .label {margin: 4px;}
 
+.list-group{
+  margin-top: 1.5em;
+}
+
 .drip {
   width: 200px;
   height: 250px;
