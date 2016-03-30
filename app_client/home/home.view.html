@@ -19,7 +19,10 @@
 			<input ng-show="vm.transit" type="text" id="filter" name="filter" ng-model="textFilter">
 			<div class="error">{{vm.message}}</div>
 			<div class="row list-group">
-				<div ng-hide="vm.transit" class='drip'></div>
+				<!-- <div ng-hide="vm.transit" class='drip'></div> -->
+				<div>
+					<img ng-hide="vm.transit" src="http://www.simonholmes.com/images/Walk.gif" alt="" style="display: block; margin: 0 auto;">
+				</div>
 				<div class="col-xs-12 list-group-item" ng-repeat="mission in vm.data.missions | filter: textFilter">
 					<h4>
 						<a href="/#/mission/{{mission._id}}">{{mission.name}}</a>
