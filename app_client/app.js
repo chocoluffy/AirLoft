@@ -14,6 +14,11 @@
 				controller: 'aboutCtrl',
 				controllerAs: 'vm'
 			})
+			.when('/profile', {
+				templateUrl: 'profile/profile.view.html',
+				controller: 'profileCtrl',
+				controllerAs: 'vm'
+			})
 			.when('/mission/:missionid', {
 				templateUrl: "/missionDetail/missionDetail.view.html",
 				controller: 'missionDetailCtrl',

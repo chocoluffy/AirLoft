@@ -19,5 +19,9 @@
       $location.path('/');
     };
 
+    vm.profile = function(){
+      $location.path('/profile');
+    };
+
   }
 })();
