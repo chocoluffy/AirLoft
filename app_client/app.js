@@ -15,8 +15,13 @@
 				controllerAs: 'vm'
 			})
 			.when('/profile', {
-				templateUrl: 'profile/profile.view.html',
+				templateUrl: '/profile/profile.view.html',
 				controller: 'profileCtrl',
+				controllerAs: 'vm'
+			})
+			.when('/mission/new', {
+				templateUrl: "/missionModal/missionModal.view.html",
+				controller: "missionModalCtrl",
 				controllerAs: 'vm'
 			})
 			.when('/mission/:missionid', {

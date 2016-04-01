@@ -1,0 +1,67 @@
+<div class="modal-content">
+  <form id="addMission" name="addMission" role="form" ng-submit="vm.onSubmit()" class="form-horizontal">
+    <div class="modal-header">
+      <button type="button" ng-click="vm.modal.cancel()" class="close"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+      <h4 id="myModalLabel" class="modal-title text-center">Add a new Mission</h4>
+    </div>
+    <div class="modal-body">
+      <div role="alert" ng-show="vm.formError" class="alert alert-danger">{{ vm.formError }}</div>
+
+      <div class="form-group">
+        <label for="name" class="col-xs-10 col-sm-3 control-label">
+          Mission Name
+          <h4 style="display: inline;"><small>(Be Creative!)</small></h4>
+        </label>
+        <div class="col-xs-12 col-sm-9">
+          <input ng-model="vm.formData.missionName" type="text" class="form-control" id="missionName" required="required" placeholder="Dancing Queen">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="timeslots" class="col-xs-10 col-sm-3 control-label">
+          Timetable
+          <h4 style="display: inline;"><small>(Seperated by ",")</small></h4>
+        </label>
+        <div class="col-xs-12 col-sm-9">
+          <input ng-model="vm.formData.timeslots" type="text" class="form-control" id="timeslots" required="required" placeholder="Tue 5:00pm, Sat 5:00pm">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="contentPanel" class="col-xs-10 col-sm-3 control-label">
+          Tag1
+        </label>
+        <div class="col-xs-3 col-sm-4">
+          <input ng-model="vm.formData.tagname1" type="text" class="form-control" id="tagname1" required="required" placeholder="(tag name) Exercise">
+        </div>
+        <div class="col-xs-9 col-sm-5">
+          <input ng-model="vm.formData.tagdescript1" type="text" class="form-control" id="tagdescript1" required="required" placeholder="(decription) Fire up your energy!">
+        </div>
+
+        <label for="contentPanel" class="col-xs-10 col-sm-3 control-label">
+          Tag2
+        </label>
+        <div class="col-xs-3 col-sm-4">
+          <input ng-model="vm.formData.tagname2" type="text" class="form-control" id="tagname2" placeholder="(optional tag name) Party">
+        </div>
+        <div class="col-xs-9 col-sm-5">
+          <input ng-model="vm.formData.tagdescript2" type="text" class="form-control" id="tagdescript2" placeholder="(optional description) Acts as elegant as a queen!">
+        </div>
+
+        <label for="contentPanel" class="col-xs-10 col-sm-3 control-label">
+          Tag3
+        </label>
+        <div class="col-xs-3 col-sm-4">
+          <input ng-model="vm.formData.tagname3"  type="text" class="form-control" id="tagname3" placeholder="(optional tag name) Entertainment">
+        </div>
+        <div class="col-xs-9 col-sm-5">
+          <input ng-model="vm.formData.tagdescript3" type="text" class="form-control" id="tagdescript3" placeholder="(optional description) Do some interesting things!">
+        </div>
+      </div>
+      
+    <div class="modal-footer">
+      <button ng-click="vm.modal.cancel()" type="button" class="btn btn-default">Cancel</button>
+      <button type="submit" class="btn btn-primary">Submit Mission</button>
+    </div>
+  </form>
+</div>
